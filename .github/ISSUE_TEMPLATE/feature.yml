@@ -1,0 +1,23 @@
+name: Feature task
+description: Propose a scoped product or engineering task
+title: "[TASK] "
+labels: ["task"]
+body:
+  - type: textarea
+    id: value
+    attributes:
+      label: User value
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and out of scope
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true

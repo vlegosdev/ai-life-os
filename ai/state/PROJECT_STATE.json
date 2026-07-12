@@ -1,0 +1,55 @@
+{
+  "schema_version": 2,
+  "project": "AI Life OS",
+  "repository_version": "1.0.3",
+  "phase": {
+    "id": "P0",
+    "name": "Foundation",
+    "status": "in_progress"
+  },
+  "overall_product_progress_percent": 0,
+  "current_task": {
+    "id": "P0-001",
+    "title": "Initialize minimal repository foundation",
+    "status": "ready",
+    "goal": "Create a reproducible web/API foundation with green checks"
+  },
+  "verified_capabilities": [
+    "Canonical Markdown documentation",
+    "Compact AI onboarding and handover protocol",
+    "Context consistency validator"
+  ],
+  "module_status": {
+    "foundation": "not_started",
+    "capture": "not_started",
+    "memory": "not_started",
+    "understanding": "not_started",
+    "life_stats": "not_started",
+    "finance": "not_started",
+    "insights": "not_started",
+    "attention_guardian": "not_started",
+    "companion": "not_started"
+  },
+  "known_problems": [],
+  "approved_foundation_stack": {
+    "workspace": "pnpm workspaces + Turborepo",
+    "language": "TypeScript strict",
+    "web": "Next.js",
+    "api": "Fastify",
+    "validation": "Zod",
+    "database": "PostgreSQL later; no product schema in P0",
+    "ci": "GitHub Actions",
+    "deferred": [
+      "authentication",
+      "mobile",
+      "LLM integration",
+      "pgvector",
+      "Redis",
+      "BullMQ",
+      "S3",
+      "OpenTelemetry",
+      "Sentry"
+    ]
+  },
+  "last_updated": "2026-07-12"
+}

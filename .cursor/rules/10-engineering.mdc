@@ -1,0 +1,5 @@
+---
+description: Engineering rules
+alwaysApply: true
+---
+Use strict TypeScript. Keep domain logic outside UI/infrastructure. Validate untrusted input and LLM output. Use deterministic code for money, dates, authorization, and scores. Do not add infrastructure or packages without a current need.

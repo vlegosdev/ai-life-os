@@ -1,0 +1,5 @@
+---
+description: Core product rules
+alwaysApply: true
+---
+Read `PROJECT_BRAIN.md` and `AGENTS.md`. Reduce cognitive load, preserve raw input, keep AI advisory, and prefer the smallest working vertical slice.

@@ -1,0 +1,49 @@
+# dependencies/build
+node_modules/
+.next/
+dist/
+build/
+coverage/
+.turbo/
+*.tsbuildinfo
+
+# environment/secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# local data and AI exports
+local-data/
+user-data/
+exports/
+*.sqlite
+*.sqlite3
+
+# editors/OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# temp/logs
+*.log
+tmp/*
+!tmp/.gitkeep
+
+# Human exports are generated outside the repository
+*.docx
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# macOS
+.DS_Store
+
+# Cursor
+.cursor-cache/

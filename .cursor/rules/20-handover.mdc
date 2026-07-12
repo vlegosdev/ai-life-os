@@ -1,0 +1,5 @@
+---
+description: Session handover
+alwaysApply: true
+---
+A meaningful task ends only after checks pass and the four continuity files in `AGENTS.md` are truthful. Run `python scripts/validate_project_context.py`.

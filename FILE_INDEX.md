@@ -1,0 +1,57 @@
+# File Index
+
+Canonical repository contents:
+
+- `.cursor/rules/00-project-core.mdc`
+- `.cursor/rules/10-engineering.mdc`
+- `.cursor/rules/20-handover.mdc`
+- `.editorconfig`
+- `.env.example`
+- `.gitattributes`
+- `.github/ISSUE_TEMPLATE/bug.yml`
+- `.github/ISSUE_TEMPLATE/feature.yml`
+- `.github/PULL_REQUEST_TEMPLATE.md`
+- `.github/workflows/context-validation.yml`
+- `.gitignore`
+- `.vscode/extensions.json`
+- `.vscode/settings.json`
+- `AGENTS.md`
+- `CHANGELOG.md`
+- `CONTRIBUTING.md`
+- `LICENSE.md`
+- `PROJECT_BRAIN.md`
+- `README.md`
+- `SECURITY.md`
+- `START_HERE.md`
+- `VERSION`
+- `ai/README.md`
+- `ai/START_NEW_SESSION.md`
+- `ai/context/PROJECT_CONTEXT.md`
+- `ai/state/CURRENT_STATE.md`
+- `ai/state/NEXT_TASK.md`
+- `ai/state/PROJECT_STATE.json`
+- `ai/state/SESSION_LOG.md`
+- `ai/templates/ADR_TEMPLATE.md`
+- `ai/templates/REVIEW_TEMPLATE.md`
+- `ai/templates/TASK_TEMPLATE.md`
+- `apps/README.md`
+- `apps/api/.gitkeep`
+- `apps/web/.gitkeep`
+- `docs/README.md`
+- `docs/adr/architecture-decisions.md`
+- `docs/engineering/ai-engineering-bible.md`
+- `docs/engineering/engineering-bible.md`
+- `docs/operations/ai-collaboration-handover.md`
+- `docs/product/design-system.md`
+- `docs/product/development-roadmap.md`
+- `docs/product/manifesto.md`
+- `docs/product/product-vision.md`
+- `infra/.gitkeep`
+- `packages/README.md`
+- `packages/config/.gitkeep`
+- `scripts/README.md`
+- `scripts/init-git.ps1`
+- `scripts/init-git.sh`
+- `scripts/validate_project_context.py`
+- `tests/.gitkeep`
+- `tmp/.gitkeep`
