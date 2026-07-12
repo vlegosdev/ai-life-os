@@ -1,6 +1,7 @@
 "use client";
 
 import { type FormEvent, useEffect, useState } from "react";
+import { formatEntryDate } from "./format-entry-date";
 
 const categories = ["task", "expense", "goal", "idea", "note"] as const;
 
@@ -17,7 +18,7 @@ const categoryLabels: Record<Category, string> = {
 interface Entry {
   id: string;
   text: string;
-  createdAt: string;
+  createdAt?: string;
   category: Category;
 }
 
@@ -33,8 +34,7 @@ function isEntry(value: unknown): value is Entry {
     typeof value.id === "string" &&
     "text" in value &&
     typeof value.text === "string" &&
-    "createdAt" in value &&
-    typeof value.createdAt === "string" &&
+    (!("createdAt" in value) || typeof value.createdAt === "string") &&
     "category" in value &&
     isCategory(value.category)
   );
@@ -240,41 +240,52 @@ export default function HomePage() {
           <p>Здесь появятся сохранённые мысли.</p>
         ) : visibleEntries.length > 0 ? (
           <ol className="history-list">
-            {visibleEntries.map((entry) => (
-              <li key={entry.id}>
-                <div className="entry-content">
-                  <span>{entry.text}</span>
-                  <label className="sr-only" htmlFor={`category-${entry.id}`}>
-                    Категория записи
-                  </label>
-                  <select
-                    className="entry-category"
-                    id={`category-${entry.id}`}
-                    value={entry.category}
-                    disabled={updatingCategoryId !== null}
-                    onChange={(event) => {
-                      if (isCategory(event.target.value)) {
-                        void handleCategoryChange(entry, event.target.value);
-                      }
-                    }}
+            {visibleEntries.map((entry) => {
+              const formattedDate = formatEntryDate(entry.createdAt);
+
+              return (
+                <li key={entry.id}>
+                  <div className="entry-content">
+                    <span>{entry.text}</span>
+                    <div className="entry-meta">
+                      {formattedDate && entry.createdAt ? (
+                        <time className="entry-time" dateTime={entry.createdAt}>
+                          {formattedDate}
+                        </time>
+                      ) : null}
+                      <label className="sr-only" htmlFor={`category-${entry.id}`}>
+                        Категория записи
+                      </label>
+                      <select
+                        className="entry-category"
+                        id={`category-${entry.id}`}
+                        value={entry.category}
+                        disabled={updatingCategoryId !== null}
+                        onChange={(event) => {
+                          if (isCategory(event.target.value)) {
+                            void handleCategoryChange(entry, event.target.value);
+                          }
+                        }}
+                      >
+                        {categories.map((category) => (
+                          <option key={category} value={category}>
+                            {categoryLabels[category]}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  <button
+                    className="entry-delete"
+                    type="button"
+                    disabled={deletingId !== null}
+                    onClick={() => void handleDelete(entry)}
                   >
-                    {categories.map((category) => (
-                      <option key={category} value={category}>
-                        {categoryLabels[category]}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <button
-                  className="entry-delete"
-                  type="button"
-                  disabled={deletingId !== null}
-                  onClick={() => void handleDelete(entry)}
-                >
-                  Удалить
-                </button>
-              </li>
-            ))}
+                    Удалить
+                  </button>
+                </li>
+              );
+            })}
           </ol>
         ) : !isLoading ? (
           <p>Ничего не найдено.</p>

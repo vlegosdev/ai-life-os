@@ -8,7 +8,7 @@ import { categorySchema, classifyEntry, type Category } from "./classification.j
 const storedEntrySchema = z.object({
   id: z.string().uuid(),
   text: z.string(),
-  createdAt: z.string().datetime(),
+  createdAt: z.string().optional(),
   category: categorySchema.optional(),
 });
 

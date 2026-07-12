@@ -83,3 +83,13 @@ Append one concise entry after each meaningful task. Never rewrite old entries.
 - Manually verified all labels, exact text, correction, refresh, search, and deletion in Chromium.
 - Verified format, lint, typecheck, tests, build, and project-context validation.
 - Marked P1-007 ready but did not start it.
+
+## 2026-07-13 - Complete P1-007 Memory creation-time display
+
+- Added local-time formatting for today, yesterday, older current-year dates, and dates from other years.
+- Added a visually secondary semantic timestamp beside each entry's category.
+- Omitted missing or invalid legacy timestamps without crashing or rewriting entry content.
+- Added focused web Vitest coverage for every requested date case.
+- Manually verified desktop and mobile layout plus search, deletion, classification, and correction regressions.
+- Verified format, lint, typecheck, 19 tests, build, and project-context validation.
+- Marked P1-008 ready but did not start it; export remains unstarted.

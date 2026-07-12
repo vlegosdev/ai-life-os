@@ -9,10 +9,10 @@
   },
   "overall_product_progress_percent": 0,
   "current_task": {
-    "id": "P1-007",
-    "title": "Export Memory history as JSON",
+    "id": "P1-008",
+    "title": "Filter Memory history by category",
     "status": "ready",
-    "goal": "Let the user download the exact stored Memory history as a JSON file"
+    "goal": "Let the user narrow the current history to one deterministic category"
   },
   "verified_capabilities": [
     "Canonical Markdown documentation",
@@ -29,12 +29,14 @@
     "Web history loading and saving through the API with basic error states",
     "Confirmed durable deletion of individual Memory entries",
     "Frontend-only case-insensitive Memory history search",
-    "Deterministic local Memory classification with persistent manual correction"
+    "Deterministic local Memory classification with persistent manual correction",
+    "Local-time Memory creation timestamps with legacy-safe formatting",
+    "Focused web unit test runner"
   ],
   "module_status": {
     "foundation": "complete",
     "capture": "durable_flow_complete",
-    "memory": "durable_history_with_categories_complete",
+    "memory": "durable_history_with_categories_and_times_complete",
     "understanding": "deterministic_classification_complete",
     "life_stats": "not_started",
     "finance": "not_started",

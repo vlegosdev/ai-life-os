@@ -168,6 +168,18 @@ select {
   gap: 8px;
 }
 
+.entry-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.entry-time {
+  color: #7a827c;
+  font-size: 12px;
+}
+
 .entry-category {
   width: fit-content;
   padding: 2px 22px 2px 6px;

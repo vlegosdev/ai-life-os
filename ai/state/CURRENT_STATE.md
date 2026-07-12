@@ -23,11 +23,14 @@
 - P1-006 adds deterministic local categories: `task`, `expense`, `goal`, `idea`, and fallback `note`.
 - Legacy entries are classified and atomically upgraded on load without changing original text, IDs, timestamps, or ordering.
 - Users can persist a manual category correction through `PATCH /entries/:id`; stored corrections override automatic classification.
+- P1-007 displays `createdAt` in the user's local timezone as today, yesterday, or an older date with a conditional year.
+- Missing and invalid legacy timestamps are omitted without affecting entry text, categories, search, correction, or deletion.
+- The web workspace now runs focused Vitest unit tests for deterministic date formatting.
 
 ## Not implemented
 
 - multi-user or concurrent-process storage;
-- edit, pagination, and export;
+- edit, pagination, category filtering, and export;
 - authentication;
 - AI integration;
 - finance, goals, HUD, insights, attention guardian, and companion.
@@ -38,4 +41,4 @@ The physical foundation contains only `apps/web` and `apps/api`. P1 uses a singl
 
 ## Documentation status
 
-Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-006 deterministic classification and identify P1-007 as ready but not started.
+Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-007 creation-time display and identify P1-008 as ready but not started.
