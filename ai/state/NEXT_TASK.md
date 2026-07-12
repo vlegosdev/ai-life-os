@@ -1,4 +1,4 @@
-# Next Task - P1-001
+# Next Task - P1-002
 
 ## Status
 
@@ -6,20 +6,20 @@ Ready. Not started.
 
 ## Objective
 
-Deliver the first product vertical slice: enter one text thought, preserve the exact original text durably, and show it in chronological history.
+Make the existing Memory UI shell interactive in the browser: submitting non-empty text adds the unchanged text to the visible history for the current page session.
 
 ## Required result
 
-- one text capture surface in the web application;
-- original user input persisted before any interpretation;
-- chronological history of saved entries;
-- focused tests for capture, persistence, and history behavior;
-- documented local setup for the chosen durable store.
+- the existing input and save button support submission;
+- empty input is not added;
+- submitted text appears unchanged in chronological history;
+- the input clears after a successful submission;
+- focused frontend tests cover the interaction.
 
 ## Out of scope
 
-AI classification, derived entities, authentication, finance, goals, HUD, companion, mobile, integrations, queues, caches, and speculative shared packages.
+API calls, database storage, reload persistence, AI classification, authentication, new packages, and architecture changes.
 
 ## Acceptance criteria
 
-A user can enter text, reload the application, and see the unchanged original entry in chronological history. Relevant lint, typecheck, tests, build, and context validation pass.
+A user can enter text and see the unchanged entry in the current in-memory history. Reloading may clear the history. Relevant format, lint, typecheck, tests, build, and context validation pass.
