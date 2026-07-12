@@ -1,4 +1,4 @@
-# Next Task - P1-008
+# Next Task - P1-009
 
 ## Status
 
@@ -6,20 +6,19 @@ Ready. Not started.
 
 ## Objective
 
-Let the user filter the loaded Memory history by one existing deterministic category without changing backend storage or search behavior.
+Let the user export the complete stored Memory history as a JSON file without changing or interpreting any entry.
 
 ## Required result
 
-- one compact category filter near the history search input;
-- options for all categories plus all entries;
-- category filtering composes with the current text search;
-- clearing the filter restores the full newest-first history;
-- a compact empty state appears when no entry matches.
+- one small export control near the history section;
+- exported data includes each entry's existing `id`, `text`, `createdAt`, and `category`;
+- export includes the full newest-first history regardless of active search or category filters;
+- export failure uses the existing compact error treatment.
 
 ## Out of scope
 
-Backend filtering, multi-select, counts, sorting, grouping, export, AI, and new dependencies.
+Import, CSV, cloud sync, authentication, AI classification, analytics, and new dependencies.
 
 ## Acceptance criteria
 
-The user can select one category and see only matching entries while search, deletion, correction, and newest-first ordering remain intact. Relevant format, lint, typecheck, tests, build, and context validation pass.
+The user can download a valid JSON representation of the complete current Memory history without modifying stored data. Relevant format, lint, typecheck, tests, build, and context validation pass.

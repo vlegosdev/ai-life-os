@@ -93,3 +93,13 @@ Append one concise entry after each meaningful task. Never rewrite old entries.
 - Manually verified desktop and mobile layout plus search, deletion, classification, and correction regressions.
 - Verified format, lint, typecheck, 19 tests, build, and project-context validation.
 - Marked P1-008 ready but did not start it; export remains unstarted.
+
+## 2026-07-13 - Complete P1-008 Memory category filtering
+
+- Added compact single-select filters for all entries and each deterministic category.
+- Added pure frontend filter logic that composes category and trimmed case-insensitive text search.
+- Preserved newest-first ordering and kept search and category state independent.
+- Added focused tests for every category, all entries, combined search, correction, and deletion.
+- Manually verified filters, empty states, correction, deletion, refresh reset, timestamps, and desktop/mobile layout.
+- Verified format, lint, typecheck, 28 tests, build, and project-context validation.
+- Marked P1-009 ready but did not start it; export and AI classification remain unstarted.

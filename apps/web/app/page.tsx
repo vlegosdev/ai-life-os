@@ -1,11 +1,14 @@
 "use client";
 
 import { type FormEvent, useEffect, useState } from "react";
+import {
+  categories,
+  filterEntries,
+  isCategory,
+  type Category,
+  type CategoryFilter,
+} from "./filter-entries";
 import { formatEntryDate } from "./format-entry-date";
-
-const categories = ["task", "expense", "goal", "idea", "note"] as const;
-
-type Category = (typeof categories)[number];
 
 const categoryLabels: Record<Category, string> = {
   task: "задача",
@@ -15,15 +18,20 @@ const categoryLabels: Record<Category, string> = {
   note: "заметка",
 };
 
+const categoryFilters: Array<{ value: CategoryFilter; label: string }> = [
+  { value: "all", label: "Все" },
+  { value: "task", label: "Задачи" },
+  { value: "expense", label: "Расходы" },
+  { value: "goal", label: "Цели" },
+  { value: "idea", label: "Идеи" },
+  { value: "note", label: "Заметки" },
+];
+
 interface Entry {
   id: string;
   text: string;
   createdAt?: string;
   category: Category;
-}
-
-function isCategory(value: unknown): value is Category {
-  return categories.some((category) => category === value);
 }
 
 function isEntry(value: unknown): value is Entry {
@@ -43,16 +51,14 @@ function isEntry(value: unknown): value is Entry {
 export default function HomePage() {
   const [input, setInput] = useState("");
   const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState<CategoryFilter>("all");
   const [entries, setEntries] = useState<Entry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [updatingCategoryId, setUpdatingCategoryId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const normalizedSearch = search.trim().toLowerCase();
-  const visibleEntries = normalizedSearch
-    ? entries.filter((entry) => entry.text.toLowerCase().includes(normalizedSearch))
-    : entries;
+  const visibleEntries = filterEntries(entries, search, categoryFilter);
 
   useEffect(() => {
     let active = true;
@@ -236,6 +242,19 @@ export default function HomePage() {
           value={search}
           onChange={(event) => setSearch(event.target.value)}
         />
+        <div className="category-filters" role="group" aria-label="Фильтр по категории">
+          {categoryFilters.map((filter) => (
+            <button
+              className="category-filter"
+              key={filter.value}
+              type="button"
+              aria-pressed={categoryFilter === filter.value}
+              onClick={() => setCategoryFilter(filter.value)}
+            >
+              {filter.label}
+            </button>
+          ))}
+        </div>
         {!isLoading && entries.length === 0 ? (
           <p>Здесь появятся сохранённые мысли.</p>
         ) : visibleEntries.length > 0 ? (

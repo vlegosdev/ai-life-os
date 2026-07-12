@@ -26,11 +26,13 @@
 - P1-007 displays `createdAt` in the user's local timezone as today, yesterday, or an older date with a conditional year.
 - Missing and invalid legacy timestamps are omitted without affecting entry text, categories, search, correction, or deletion.
 - The web workspace now runs focused Vitest unit tests for deterministic date formatting.
+- P1-008 adds frontend-only single-category filtering with an accessible compact control.
+- Category filtering composes with text search, preserves newest-first ordering, resets on refresh, and reacts immediately to correction and deletion.
 
 ## Not implemented
 
 - multi-user or concurrent-process storage;
-- edit, pagination, category filtering, and export;
+- edit, pagination, and export;
 - authentication;
 - AI integration;
 - finance, goals, HUD, insights, attention guardian, and companion.
@@ -41,4 +43,4 @@ The physical foundation contains only `apps/web` and `apps/api`. P1 uses a singl
 
 ## Documentation status
 
-Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-007 creation-time display and identify P1-008 as ready but not started.
+Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-008 category filtering and identify P1-009 as ready but not started.
