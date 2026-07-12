@@ -2,27 +2,27 @@
 
 ## Verified
 
-- The repository is still pre-code.
-- Product and engineering references exist in Markdown.
-- A single conflict-resolution rule exists in `PROJECT_BRAIN.md`.
-- The AI handover system has been reduced to four state files.
-- `scripts/validate_project_context.py` validates the repository version, required files, accepted ADR IDs, and forbidden duplicate artifacts.
+- P0-001 is complete.
+- The repository uses pnpm workspaces and Turborepo.
+- `apps/web` is a minimal Next.js application that builds successfully.
+- `apps/api` is a minimal Fastify service with a typed `GET /health` response.
+- The health route is covered by a passing Vitest injection test.
+- Strict TypeScript, ESLint, Prettier, and GitHub Actions checks are configured.
+- Install, lint, typecheck, test, build, and project-context validation pass.
 
 ## Not implemented
 
-- web application;
-- API;
+- product capture flow;
+- durable Memory storage and chronological history;
 - database schema;
 - authentication;
-- Capture;
-- Memory Engine;
 - AI integration;
-- finance, goals, HUD, insights, and companion.
+- finance, goals, HUD, insights, attention guardian, and companion.
 
 ## Current architecture
 
-P0 will create only `apps/web`, `apps/api`, and shared configuration if required. Other packages are created only when real sharing appears.
+The physical foundation contains only `apps/web` and `apps/api`. PostgreSQL is reserved for the first task that requires durable product storage. Shared packages are deferred until two real consumers need them.
 
 ## Documentation status
 
-Documentation is frozen at v1.0.3. Future edits require a code change, a discovered contradiction, or a durable accepted decision.
+Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P0 foundation and identify P1-001 as ready but not started.

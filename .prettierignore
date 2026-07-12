@@ -1,0 +1,11 @@
+node_modules
+.next
+dist
+coverage
+.turbo
+pnpm-lock.yaml
+
+# Frozen reference documents and pre-existing templates
+docs/
+ai/templates/
+.github/PULL_REQUEST_TEMPLATE.md

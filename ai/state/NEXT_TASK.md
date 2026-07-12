@@ -1,27 +1,25 @@
-# Next Task — P0-001
+# Next Task - P1-001
+
+## Status
+
+Ready. Not started.
 
 ## Objective
 
-Initialize the smallest reproducible foundation. Do not implement product business logic.
+Deliver the first product vertical slice: enter one text thought, preserve the exact original text durably, and show it in chronological history.
 
 ## Required result
 
-- pnpm workspace and Turborepo configuration;
-- `apps/web`: minimal Next.js page that starts successfully;
-- `apps/api`: minimal Fastify service with `GET /health`;
-- strict TypeScript, ESLint, Prettier, test runner;
-- health-check test;
-- CI runs install, lint, typecheck, test, and build;
-- exact local commands in README.
+- one text capture surface in the web application;
+- original user input persisted before any interpretation;
+- chronological history of saved entries;
+- focused tests for capture, persistence, and history behavior;
+- documented local setup for the chosen durable store.
 
 ## Out of scope
 
-Authentication, database schema, Memory, AI/LLM, pgvector, Redis, queues, mobile, design system implementation, analytics, and deployment infrastructure.
+AI classification, derived entities, authentication, finance, goals, HUD, companion, mobile, integrations, queues, caches, and speculative shared packages.
 
 ## Acceptance criteria
 
-A clean checkout can install dependencies and pass lint, typecheck, tests, and build using documented commands. The web page loads and `/health` returns a typed successful response.
-
-## First product milestone after P0
-
-P1 must deliver one vertical slice: enter text → preserve original text → show it in chronological history. No AI classification is required for that milestone.
+A user can enter text, reload the application, and see the unchanged original entry in chronological history. Relevant lint, typecheck, tests, build, and context validation pass.
