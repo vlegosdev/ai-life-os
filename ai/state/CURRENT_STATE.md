@@ -20,6 +20,9 @@
 - Successful deletion updates the visible history immediately and survives refresh; missing IDs return 404 without modifying other entries.
 - P1-005 adds frontend-only history search with trimmed, case-insensitive substring matching.
 - Search updates as the user types, preserves newest-first order, shows a compact no-results state, and remains compatible with deletion.
+- P1-006 adds deterministic local categories: `task`, `expense`, `goal`, `idea`, and fallback `note`.
+- Legacy entries are classified and atomically upgraded on load without changing original text, IDs, timestamps, or ordering.
+- Users can persist a manual category correction through `PATCH /entries/:id`; stored corrections override automatic classification.
 
 ## Not implemented
 
@@ -35,4 +38,4 @@ The physical foundation contains only `apps/web` and `apps/api`. P1 uses a singl
 
 ## Documentation status
 
-Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-005 search flow and identify P1-006 as ready but not started.
+Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-006 deterministic classification and identify P1-007 as ready but not started.

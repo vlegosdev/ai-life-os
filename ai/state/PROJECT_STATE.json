@@ -9,7 +9,7 @@
   },
   "overall_product_progress_percent": 0,
   "current_task": {
-    "id": "P1-006",
+    "id": "P1-007",
     "title": "Export Memory history as JSON",
     "status": "ready",
     "goal": "Let the user download the exact stored Memory history as a JSON file"
@@ -28,13 +28,14 @@
     "Durable local JSON Memory storage through GET and POST entry endpoints",
     "Web history loading and saving through the API with basic error states",
     "Confirmed durable deletion of individual Memory entries",
-    "Frontend-only case-insensitive Memory history search"
+    "Frontend-only case-insensitive Memory history search",
+    "Deterministic local Memory classification with persistent manual correction"
   ],
   "module_status": {
     "foundation": "complete",
     "capture": "durable_flow_complete",
-    "memory": "durable_history_with_search_complete",
-    "understanding": "not_started",
+    "memory": "durable_history_with_categories_complete",
+    "understanding": "deterministic_classification_complete",
     "life_stats": "not_started",
     "finance": "not_started",
     "insights": "not_started",
@@ -62,5 +63,5 @@
       "Sentry"
     ]
   },
-  "last_updated": "2026-07-12"
+  "last_updated": "2026-07-13"
 }

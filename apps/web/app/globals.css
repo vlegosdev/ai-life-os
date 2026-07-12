@@ -24,7 +24,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -160,6 +161,30 @@ input {
   border-bottom: 1px solid #e0e4e1;
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+
+.entry-content {
+  display: grid;
+  gap: 8px;
+}
+
+.entry-category {
+  width: fit-content;
+  padding: 2px 22px 2px 6px;
+  border: 1px solid #d5dad6;
+  border-radius: 4px;
+  background: #f5f6f3;
+  color: #68716b;
+  font-size: 12px;
+}
+
+.entry-category:focus-visible {
+  outline: 2px solid #98c9ad;
+  outline-offset: 2px;
+}
+
+.entry-category:disabled {
+  opacity: 0.6;
 }
 
 .entry-delete {

@@ -3,17 +3,25 @@ import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { z } from "zod";
+import { categorySchema, classifyEntry, type Category } from "./classification.js";
 
-export const entrySchema = z.object({
+const storedEntrySchema = z.object({
   id: z.string().uuid(),
   text: z.string(),
   createdAt: z.string().datetime(),
+  category: categorySchema.optional(),
 });
 
+export const entrySchema = storedEntrySchema.extend({ category: categorySchema });
 export const entriesSchema = z.array(entrySchema);
+const storedEntriesSchema = z.array(storedEntrySchema);
 
 export const createEntrySchema = z.object({
   text: z.string(),
+});
+
+export const updateEntryCategorySchema = z.object({
+  category: categorySchema,
 });
 
 export type Entry = z.infer<typeof entrySchema>;
@@ -31,7 +39,17 @@ export async function readEntries(filePath: string): Promise<Entry[]> {
   try {
     const contents = await readFile(filePath, "utf8");
     const parsed: unknown = JSON.parse(contents);
-    return entriesSchema.parse(parsed);
+    const storedEntries = storedEntriesSchema.parse(parsed);
+    const entries = storedEntries.map((entry) => ({
+      ...entry,
+      category: entry.category ?? classifyEntry(entry.text),
+    }));
+
+    if (storedEntries.some((entry) => entry.category === undefined)) {
+      await writeEntries(filePath, entries);
+    }
+
+    return entries;
   } catch (error) {
     if (isMissingFile(error)) {
       return [];
@@ -55,6 +73,7 @@ export async function createEntry(filePath: string, text: string): Promise<Entry
     id: randomUUID(),
     text,
     createdAt: new Date().toISOString(),
+    category: classifyEntry(text),
   };
 
   await writeEntries(filePath, [entry, ...entries]);
@@ -73,4 +92,30 @@ export async function deleteEntry(filePath: string, id: string): Promise<boolean
   await writeEntries(filePath, [...entries.slice(0, entryIndex), ...entries.slice(entryIndex + 1)]);
 
   return true;
+}
+
+export async function updateEntryCategory(
+  filePath: string,
+  id: string,
+  category: Category,
+): Promise<Entry | null> {
+  const entries = await readEntries(filePath);
+  const entryIndex = entries.findIndex((entry) => entry.id === id);
+
+  if (entryIndex === -1) {
+    return null;
+  }
+
+  const existingEntry = entries[entryIndex];
+
+  if (!existingEntry) {
+    return null;
+  }
+
+  const updatedEntry: Entry = { ...existingEntry, category };
+  const updatedEntries = [...entries];
+  updatedEntries[entryIndex] = updatedEntry;
+  await writeEntries(filePath, updatedEntries);
+
+  return updatedEntry;
 }

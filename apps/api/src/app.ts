@@ -5,6 +5,8 @@ import {
   DEFAULT_ENTRIES_FILE_PATH,
   deleteEntry,
   readEntries,
+  updateEntryCategory,
+  updateEntryCategorySchema,
 } from "./entries.js";
 import { HEALTH_RESPONSE } from "./health.js";
 
@@ -30,7 +32,7 @@ export async function buildApp(options: BuildAppOptions = {}) {
 
   app.get("/entries", async (_request, reply) => {
     reply.header("cache-control", "no-store");
-    return readEntries(entriesFilePath);
+    return queueWrite(() => readEntries(entriesFilePath));
   });
 
   app.post("/entries", async (request, reply) => {
@@ -53,6 +55,24 @@ export async function buildApp(options: BuildAppOptions = {}) {
     }
 
     return reply.code(204).send();
+  });
+
+  app.patch<{ Params: { id: string } }>("/entries/:id", async (request, reply) => {
+    const parsed = updateEntryCategorySchema.safeParse(request.body);
+
+    if (!parsed.success) {
+      return reply.code(400).send({ error: "Valid category is required" });
+    }
+
+    const entry = await queueWrite(() =>
+      updateEntryCategory(entriesFilePath, request.params.id, parsed.data.category),
+    );
+
+    if (!entry) {
+      return reply.code(404).send({ error: "Entry not found" });
+    }
+
+    return reply.send(entry);
   });
 
   return app;

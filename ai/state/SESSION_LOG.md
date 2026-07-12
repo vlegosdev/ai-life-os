@@ -71,3 +71,15 @@ Append one concise entry after each meaningful task. Never rewrite old entries.
 - Manually verified exact, partial, case-insensitive, trimmed, empty, cleared, and delete-while-filtered cases in Chromium.
 - Verified format, lint, typecheck, tests, build, and project-context validation.
 - Marked P1-006 ready but did not start it.
+
+## 2026-07-13 - Complete P1-006 deterministic Memory classification
+
+- Added pure local rules for `task`, `expense`, `goal`, `idea`, and fallback `note` categories.
+- Added required category contracts while safely upgrading legacy entries without rewriting original text.
+- Classified new entries on the API and added validated `PATCH /entries/:id` category correction.
+- Persisted manual corrections so they override automatic classification across restarts.
+- Added small category selectors to history without changing search or deletion behavior.
+- Added rule, legacy migration, text preservation, and correction persistence tests.
+- Manually verified all labels, exact text, correction, refresh, search, and deletion in Chromium.
+- Verified format, lint, typecheck, tests, build, and project-context validation.
+- Marked P1-007 ready but did not start it.

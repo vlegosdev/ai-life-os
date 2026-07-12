@@ -1,4 +1,4 @@
-import { mkdtemp, readFile, rm } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -126,5 +126,57 @@ describe("entries API", () => {
     ]);
 
     await app.close();
+  });
+
+  it("classifies and safely upgrades an existing entry without changing its text", async () => {
+    const entriesFilePath = await createTestFilePath();
+    const legacyEntry = {
+      id: "00000000-0000-4000-8000-000000000001",
+      text: "Нужно   сохранить исходные слова",
+      createdAt: "2026-07-13T00:00:00.000Z",
+    };
+    await writeFile(entriesFilePath, JSON.stringify([legacyEntry]), "utf8");
+    const app = await buildApp({ entriesFilePath });
+
+    const response = await app.inject({ method: "GET", url: "/entries" });
+
+    expect(response.statusCode).toBe(200);
+    const entries = entriesSchema.parse(response.json());
+    expect(entries).toEqual([{ ...legacyEntry, category: "task" }]);
+    expect(entriesSchema.parse(JSON.parse(await readFile(entriesFilePath, "utf8")))).toEqual(
+      entries,
+    );
+
+    await app.close();
+  });
+
+  it("persists a manual category correction across an API restart", async () => {
+    const entriesFilePath = await createTestFilePath();
+    const firstApp = await buildApp({ entriesFilePath });
+    const createResponse = await firstApp.inject({
+      method: "POST",
+      url: "/entries",
+      payload: { text: "Идея оставить точную формулировку" },
+    });
+    const createdEntry = entrySchema.parse(createResponse.json());
+    expect(createdEntry.category).toBe("idea");
+
+    const correctionResponse = await firstApp.inject({
+      method: "PATCH",
+      url: `/entries/${createdEntry.id}`,
+      payload: { category: "goal" },
+    });
+
+    expect(correctionResponse.statusCode).toBe(200);
+    const correctedEntry = entrySchema.parse(correctionResponse.json());
+    expect(correctedEntry).toEqual({ ...createdEntry, category: "goal" });
+    expect(correctedEntry.text).toBe(createdEntry.text);
+    await firstApp.close();
+
+    const restartedApp = await buildApp({ entriesFilePath });
+    const entriesResponse = await restartedApp.inject({ method: "GET", url: "/entries" });
+    expect(entriesSchema.parse(entriesResponse.json())).toEqual([correctedEntry]);
+
+    await restartedApp.close();
   });
 });

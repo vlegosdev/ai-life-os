@@ -2,10 +2,27 @@
 
 import { type FormEvent, useEffect, useState } from "react";
 
+const categories = ["task", "expense", "goal", "idea", "note"] as const;
+
+type Category = (typeof categories)[number];
+
+const categoryLabels: Record<Category, string> = {
+  task: "задача",
+  expense: "расход",
+  goal: "цель",
+  idea: "идея",
+  note: "заметка",
+};
+
 interface Entry {
   id: string;
   text: string;
   createdAt: string;
+  category: Category;
+}
+
+function isCategory(value: unknown): value is Category {
+  return categories.some((category) => category === value);
 }
 
 function isEntry(value: unknown): value is Entry {
@@ -17,7 +34,9 @@ function isEntry(value: unknown): value is Entry {
     "text" in value &&
     typeof value.text === "string" &&
     "createdAt" in value &&
-    typeof value.createdAt === "string"
+    typeof value.createdAt === "string" &&
+    "category" in value &&
+    isCategory(value.category)
   );
 }
 
@@ -28,6 +47,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [updatingCategoryId, setUpdatingCategoryId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const normalizedSearch = search.trim().toLowerCase();
   const visibleEntries = normalizedSearch
@@ -137,6 +157,41 @@ export default function HomePage() {
     }
   }
 
+  async function handleCategoryChange(entry: Entry, category: Category) {
+    if (updatingCategoryId || category === entry.category) {
+      return;
+    }
+
+    setUpdatingCategoryId(entry.id);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/entries/${encodeURIComponent(entry.id)}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ category }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Category request failed");
+      }
+
+      const data: unknown = await response.json();
+
+      if (!isEntry(data)) {
+        throw new Error("Category response is invalid");
+      }
+
+      setEntries((currentEntries) =>
+        currentEntries.map((currentEntry) => (currentEntry.id === data.id ? data : currentEntry)),
+      );
+    } catch {
+      setError("Не удалось изменить категорию.");
+    } finally {
+      setUpdatingCategoryId(null);
+    }
+  }
+
   return (
     <main className="page-shell">
       <header className="page-header">
@@ -187,7 +242,29 @@ export default function HomePage() {
           <ol className="history-list">
             {visibleEntries.map((entry) => (
               <li key={entry.id}>
-                <span>{entry.text}</span>
+                <div className="entry-content">
+                  <span>{entry.text}</span>
+                  <label className="sr-only" htmlFor={`category-${entry.id}`}>
+                    Категория записи
+                  </label>
+                  <select
+                    className="entry-category"
+                    id={`category-${entry.id}`}
+                    value={entry.category}
+                    disabled={updatingCategoryId !== null}
+                    onChange={(event) => {
+                      if (isCategory(event.target.value)) {
+                        void handleCategoryChange(entry, event.target.value);
+                      }
+                    }}
+                  >
+                    {categories.map((category) => (
+                      <option key={category} value={category}>
+                        {categoryLabels[category]}
+                      </option>
+                    ))}
+                  </select>
+                </div>
                 <button
                   className="entry-delete"
                   type="button"
