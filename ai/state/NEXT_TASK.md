@@ -1,4 +1,4 @@
-# Next Task - P1-003
+# Next Task - P1-004
 
 ## Status
 
@@ -6,20 +6,19 @@ Ready. Not started.
 
 ## Objective
 
-Create the smallest durable Memory storage layer so immutable original text and its creation time survive process restarts.
+Show each Memory entry's authoritative `createdAt` value in the existing history without changing capture or storage behavior.
 
 ## Required result
 
-- minimal PostgreSQL setup using the already approved foundation choice;
-- one Memory table containing original text and authoritative creation metadata;
-- original text is stored without AI interpretation;
-- focused persistence tests cover insertion and chronological retrieval;
-- exact local database commands are documented in the existing README.
+- each history item shows a concise local creation date and time;
+- ordering continues to use the API's newest-first response;
+- invalid dates do not break the history screen;
+- focused verification covers date rendering.
 
 ## Out of scope
 
-Web integration, authentication, AI classification, derived entities, queues, caches, search, embeddings, and speculative abstractions.
+Editing, deleting, pagination, search, relative-time updates, user timezone settings, authentication, and AI.
 
 ## Acceptance criteria
 
-The persistence layer stores the original Memory text durably and retrieves entries in chronological order. Relevant format, lint, typecheck, tests, build, and context validation pass.
+Persisted history remains readable after refresh and displays a creation time for every valid entry. Relevant format, lint, typecheck, tests, build, and context validation pass.

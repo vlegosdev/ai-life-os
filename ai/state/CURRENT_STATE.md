@@ -13,19 +13,22 @@
 - The UI shell is responsive, keyboard accessible, and implemented without new dependencies.
 - P1-002 adds browser-memory capture through the save button or Enter.
 - Input is trimmed, empty submissions are ignored, successful submissions clear the input, and newest entries appear first.
+- P1-003 persists entries to `local-data/entries.json` through `GET /entries` and `POST /entries`.
+- Each entry has an API-generated UUID and creation timestamp; surrounding whitespace is trimmed while internal wording is preserved.
+- The web app loads history on page load, saves through the API, survives refreshes, and shows compact load/save errors.
 
 ## Not implemented
 
-- durable Memory storage and chronological history;
-- database schema;
+- multi-user or concurrent-process storage;
+- edit, delete, pagination, and search;
 - authentication;
 - AI integration;
 - finance, goals, HUD, insights, attention guardian, and companion.
 
 ## Current architecture
 
-The physical foundation contains only `apps/web` and `apps/api`. PostgreSQL is reserved for the first task that requires durable product storage. Shared packages are deferred until two real consumers need them.
+The physical foundation contains only `apps/web` and `apps/api`. P1 uses a single local JSON file for minimal durable storage; PostgreSQL remains deferred. Shared packages are deferred until two real consumers need them.
 
 ## Documentation status
 
-Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-002 browser interaction and identify P1-003 as ready but not started.
+Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-003 durable flow and identify P1-004 as ready but not started.

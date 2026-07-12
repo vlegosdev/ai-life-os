@@ -9,10 +9,10 @@
   },
   "overall_product_progress_percent": 0,
   "current_task": {
-    "id": "P1-003",
-    "title": "Create minimal durable Memory storage",
+    "id": "P1-004",
+    "title": "Show Memory creation time in history",
     "status": "ready",
-    "goal": "Persist immutable original Memory text and creation time in PostgreSQL"
+    "goal": "Display each persisted entry's authoritative creation time in the existing history"
   },
   "verified_capabilities": [
     "Canonical Markdown documentation",
@@ -24,12 +24,14 @@
     "Strict TypeScript, ESLint, Prettier, and Vitest foundation",
     "GitHub Actions checks for lint, typecheck, test, build, and context validation",
     "Responsive frontend-only Memory capture UI shell",
-    "In-memory browser capture with newest-first history"
+    "In-memory browser capture with newest-first history",
+    "Durable local JSON Memory storage through GET and POST entry endpoints",
+    "Web history loading and saving through the API with basic error states"
   ],
   "module_status": {
     "foundation": "complete",
-    "capture": "frontend_interaction_complete",
-    "memory": "not_started",
+    "capture": "durable_flow_complete",
+    "memory": "minimal_storage_complete",
     "understanding": "not_started",
     "life_stats": "not_started",
     "finance": "not_started",
@@ -44,7 +46,7 @@
     "web": "Next.js",
     "api": "Fastify",
     "validation": "Zod",
-    "database": "PostgreSQL later; no product schema in P0",
+    "database": "Local JSON file for P1; PostgreSQL deferred",
     "ci": "GitHub Actions",
     "deferred": [
       "authentication",

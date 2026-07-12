@@ -40,3 +40,14 @@ Append one concise entry after each meaningful task. Never rewrite old entries.
 - Manually verified every interaction acceptance case in Chromium.
 - Verified format, lint, typecheck, tests, build, and project-context validation.
 - Marked P1-003 ready but did not start it.
+
+## 2026-07-12 - Complete P1-003 durable local Memory storage
+
+- Added `GET /entries` and `POST /entries` with runtime validation, UUIDs, and authoritative timestamps.
+- Persisted newest-first entries in the ignored `local-data/entries.json` file using serialized atomic writes.
+- Connected the existing web screen through a same-origin Next.js proxy with load/save error states.
+- Preserved internal wording, trimmed surrounding whitespace, and rejected empty input.
+- Added API tests for rejection, disk contents, ordering, and persistence across an API restart.
+- Manually verified immediate save and refresh persistence in Chromium.
+- Verified format, lint, typecheck, tests, build, and project-context validation.
+- Marked P1-004 ready but did not start it.
