@@ -9,7 +9,7 @@
   },
   "overall_product_progress_percent": 0,
   "current_task": {
-    "id": "P1-004",
+    "id": "P1-005",
     "title": "Show Memory creation time in history",
     "status": "ready",
     "goal": "Display each persisted entry's authoritative creation time in the existing history"
@@ -26,12 +26,13 @@
     "Responsive frontend-only Memory capture UI shell",
     "In-memory browser capture with newest-first history",
     "Durable local JSON Memory storage through GET and POST entry endpoints",
-    "Web history loading and saving through the API with basic error states"
+    "Web history loading and saving through the API with basic error states",
+    "Confirmed durable deletion of individual Memory entries"
   ],
   "module_status": {
     "foundation": "complete",
     "capture": "durable_flow_complete",
-    "memory": "minimal_storage_complete",
+    "memory": "minimal_crud_without_edit_complete",
     "understanding": "not_started",
     "life_stats": "not_started",
     "finance": "not_started",

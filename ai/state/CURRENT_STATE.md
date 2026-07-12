@@ -16,11 +16,13 @@
 - P1-003 persists entries to `local-data/entries.json` through `GET /entries` and `POST /entries`.
 - Each entry has an API-generated UUID and creation timestamp; surrounding whitespace is trimmed while internal wording is preserved.
 - The web app loads history on page load, saves through the API, survives refreshes, and shows compact load/save errors.
+- P1-004 adds confirmed deletion through `DELETE /entries/:id` using the existing serialized atomic write path.
+- Successful deletion updates the visible history immediately and survives refresh; missing IDs return 404 without modifying other entries.
 
 ## Not implemented
 
 - multi-user or concurrent-process storage;
-- edit, delete, pagination, and search;
+- edit, pagination, and search;
 - authentication;
 - AI integration;
 - finance, goals, HUD, insights, attention guardian, and companion.
@@ -31,4 +33,4 @@ The physical foundation contains only `apps/web` and `apps/api`. P1 uses a singl
 
 ## Documentation status
 
-Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-003 durable flow and identify P1-004 as ready but not started.
+Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-004 deletion flow and identify P1-005 as ready but not started.

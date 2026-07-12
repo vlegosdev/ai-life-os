@@ -135,10 +135,37 @@ input {
 }
 
 .history-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 20px;
   padding: 18px 0;
   border-bottom: 1px solid #e0e4e1;
   line-height: 1.5;
   overflow-wrap: anywhere;
+}
+
+.entry-delete {
+  padding: 2px 0;
+  border: 0;
+  background: transparent;
+  color: #68716b;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.entry-delete:hover {
+  color: #a33a32;
+}
+
+.entry-delete:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.entry-delete:focus-visible {
+  outline: 2px solid #98c9ad;
+  outline-offset: 3px;
 }
 
 .sr-only {

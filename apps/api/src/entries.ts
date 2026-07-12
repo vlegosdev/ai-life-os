@@ -41,6 +41,14 @@ export async function readEntries(filePath: string): Promise<Entry[]> {
   }
 }
 
+async function writeEntries(filePath: string, entries: Entry[]): Promise<void> {
+  await mkdir(dirname(filePath), { recursive: true });
+
+  const temporaryPath = `${filePath}.${randomUUID()}.tmp`;
+  await writeFile(temporaryPath, `${JSON.stringify(entries, null, 2)}\n`, "utf8");
+  await rename(temporaryPath, filePath);
+}
+
 export async function createEntry(filePath: string, text: string): Promise<Entry> {
   const entries = await readEntries(filePath);
   const entry: Entry = {
@@ -49,11 +57,20 @@ export async function createEntry(filePath: string, text: string): Promise<Entry
     createdAt: new Date().toISOString(),
   };
 
-  await mkdir(dirname(filePath), { recursive: true });
-
-  const temporaryPath = `${filePath}.${randomUUID()}.tmp`;
-  await writeFile(temporaryPath, `${JSON.stringify([entry, ...entries], null, 2)}\n`, "utf8");
-  await rename(temporaryPath, filePath);
+  await writeEntries(filePath, [entry, ...entries]);
 
   return entry;
+}
+
+export async function deleteEntry(filePath: string, id: string): Promise<boolean> {
+  const entries = await readEntries(filePath);
+  const entryIndex = entries.findIndex((entry) => entry.id === id);
+
+  if (entryIndex === -1) {
+    return false;
+  }
+
+  await writeEntries(filePath, [...entries.slice(0, entryIndex), ...entries.slice(entryIndex + 1)]);
+
+  return true;
 }

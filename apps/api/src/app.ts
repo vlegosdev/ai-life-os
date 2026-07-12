@@ -3,6 +3,7 @@ import {
   createEntry,
   createEntrySchema,
   DEFAULT_ENTRIES_FILE_PATH,
+  deleteEntry,
   readEntries,
 } from "./entries.js";
 import { HEALTH_RESPONSE } from "./health.js";
@@ -15,6 +16,15 @@ export async function buildApp(options: BuildAppOptions = {}) {
   const app = Fastify({ logger: false });
   const entriesFilePath = options.entriesFilePath ?? DEFAULT_ENTRIES_FILE_PATH;
   let pendingWrite = Promise.resolve();
+
+  function queueWrite<Result>(operation: () => Promise<Result>): Promise<Result> {
+    const result = pendingWrite.then(operation);
+    pendingWrite = result.then(
+      () => undefined,
+      () => undefined,
+    );
+    return result;
+  }
 
   app.get("/health", async () => HEALTH_RESPONSE);
 
@@ -31,14 +41,18 @@ export async function buildApp(options: BuildAppOptions = {}) {
       return reply.code(400).send({ error: "Text is required" });
     }
 
-    const write = pendingWrite.then(() => createEntry(entriesFilePath, text));
-    pendingWrite = write.then(
-      () => undefined,
-      () => undefined,
-    );
-
-    const entry = await write;
+    const entry = await queueWrite(() => createEntry(entriesFilePath, text));
     return reply.code(201).send(entry);
+  });
+
+  app.delete<{ Params: { id: string } }>("/entries/:id", async (request, reply) => {
+    const deleted = await queueWrite(() => deleteEntry(entriesFilePath, request.params.id));
+
+    if (!deleted) {
+      return reply.code(404).send({ error: "Entry not found" });
+    }
+
+    return reply.code(204).send();
   });
 
   return app;

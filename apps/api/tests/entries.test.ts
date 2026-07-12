@@ -72,4 +72,59 @@ describe("entries API", () => {
 
     await restartedApp.close();
   });
+
+  it("deletes only the matching entry", async () => {
+    const entriesFilePath = await createTestFilePath();
+    const app = await buildApp({ entriesFilePath });
+
+    const firstResponse = await app.inject({
+      method: "POST",
+      url: "/entries",
+      payload: { text: "Оставить" },
+    });
+    const secondResponse = await app.inject({
+      method: "POST",
+      url: "/entries",
+      payload: { text: "Удалить" },
+    });
+    const firstEntry = entrySchema.parse(firstResponse.json());
+    const secondEntry = entrySchema.parse(secondResponse.json());
+
+    const deleteResponse = await app.inject({
+      method: "DELETE",
+      url: `/entries/${secondEntry.id}`,
+    });
+
+    expect(deleteResponse.statusCode).toBe(204);
+    expect(deleteResponse.body).toBe("");
+    expect(entriesSchema.parse(JSON.parse(await readFile(entriesFilePath, "utf8")))).toEqual([
+      firstEntry,
+    ]);
+
+    await app.close();
+  });
+
+  it("returns 404 without modifying entries when the id is missing", async () => {
+    const entriesFilePath = await createTestFilePath();
+    const app = await buildApp({ entriesFilePath });
+    const createResponse = await app.inject({
+      method: "POST",
+      url: "/entries",
+      payload: { text: "Сохранить" },
+    });
+    const entry = entrySchema.parse(createResponse.json());
+
+    const deleteResponse = await app.inject({
+      method: "DELETE",
+      url: "/entries/00000000-0000-4000-8000-000000000000",
+    });
+
+    expect(deleteResponse.statusCode).toBe(404);
+    expect(deleteResponse.json()).toEqual({ error: "Entry not found" });
+    expect(entriesSchema.parse(JSON.parse(await readFile(entriesFilePath, "utf8")))).toEqual([
+      entry,
+    ]);
+
+    await app.close();
+  });
 });

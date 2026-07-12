@@ -26,6 +26,7 @@ export default function HomePage() {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -104,6 +105,33 @@ export default function HomePage() {
     }
   }
 
+  async function handleDelete(entry: Entry) {
+    if (deletingId || !window.confirm("Удалить эту запись?")) {
+      return;
+    }
+
+    setDeletingId(entry.id);
+    setError(null);
+
+    try {
+      const response = await fetch(`/api/entries/${encodeURIComponent(entry.id)}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Delete request failed");
+      }
+
+      setEntries((currentEntries) =>
+        currentEntries.filter((currentEntry) => currentEntry.id !== entry.id),
+      );
+    } catch {
+      setError("Не удалось удалить запись.");
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
   return (
     <main className="page-shell">
       <header className="page-header">
@@ -142,7 +170,17 @@ export default function HomePage() {
         ) : entries.length > 0 ? (
           <ol className="history-list">
             {entries.map((entry) => (
-              <li key={entry.id}>{entry.text}</li>
+              <li key={entry.id}>
+                <span>{entry.text}</span>
+                <button
+                  className="entry-delete"
+                  type="button"
+                  disabled={deletingId !== null}
+                  onClick={() => void handleDelete(entry)}
+                >
+                  Удалить
+                </button>
+              </li>
             ))}
           </ol>
         ) : null}

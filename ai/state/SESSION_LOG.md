@@ -51,3 +51,13 @@ Append one concise entry after each meaningful task. Never rewrite old entries.
 - Manually verified immediate save and refresh persistence in Chromium.
 - Verified format, lint, typecheck, tests, build, and project-context validation.
 - Marked P1-004 ready but did not start it.
+
+## 2026-07-12 - Complete P1-004 Memory deletion
+
+- Added `DELETE /entries/:id` with 404 handling for missing entries.
+- Reused serialized atomic JSON writes and removed only the matching entry.
+- Added focused API tests proving successful deletion, missing-ID behavior, and preservation of other entries.
+- Added a small per-entry delete control with native confirmation and compact failure feedback.
+- Manually verified confirmation, immediate removal, unaffected history, and refresh persistence in Chromium.
+- Verified format, lint, typecheck, tests, build, and project-context validation.
+- Marked P1-005 ready but did not start it.
