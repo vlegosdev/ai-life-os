@@ -120,6 +120,23 @@ input {
   letter-spacing: 0;
 }
 
+.history-search {
+  width: 100%;
+  min-height: 42px;
+  margin-top: 20px;
+  padding: 0 12px;
+  border: 1px solid #c3c9c4;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #1d2420;
+  outline: none;
+}
+
+.history-search:focus-visible {
+  border-color: #246b4b;
+  box-shadow: 0 0 0 3px #cce5d7;
+}
+
 .history p {
   margin: 12px 0 0;
   color: #68716b;
@@ -129,7 +146,7 @@ input {
 .history-list {
   display: grid;
   gap: 0;
-  margin: 20px 0 0;
+  margin: 12px 0 0;
   padding: 0;
   list-style: none;
 }

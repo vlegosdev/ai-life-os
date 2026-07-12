@@ -1,4 +1,4 @@
-# Next Task - P1-005
+# Next Task - P1-006
 
 ## Status
 
@@ -6,19 +6,19 @@ Ready. Not started.
 
 ## Objective
 
-Show each Memory entry's authoritative `createdAt` value in the existing history without changing capture or storage behavior.
+Let the user export the complete stored Memory history as a JSON file without changing or interpreting any entry.
 
 ## Required result
 
-- each history item shows a concise local creation date and time;
-- ordering continues to use the API's newest-first response;
-- invalid dates do not break the history screen;
-- focused verification covers date rendering.
+- one small export control near the history section;
+- exported data includes each entry's existing `id`, `text`, and `createdAt`;
+- export includes the full newest-first history regardless of the active search query;
+- export failure uses the existing compact error treatment.
 
 ## Out of scope
 
-Editing, deleting, pagination, search, relative-time updates, user timezone settings, authentication, and AI.
+Import, CSV, cloud sync, authentication, classification, creation-time display, analytics, and new dependencies.
 
 ## Acceptance criteria
 
-Persisted history remains readable after refresh and displays a creation time for every valid entry. Relevant format, lint, typecheck, tests, build, and context validation pass.
+The user can download a valid JSON representation of the complete current Memory history without modifying stored data. Relevant format, lint, typecheck, tests, build, and context validation pass.

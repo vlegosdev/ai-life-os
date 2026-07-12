@@ -23,11 +23,16 @@ function isEntry(value: unknown): value is Entry {
 
 export default function HomePage() {
   const [input, setInput] = useState("");
+  const [search, setSearch] = useState("");
   const [entries, setEntries] = useState<Entry[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const normalizedSearch = search.trim().toLowerCase();
+  const visibleEntries = normalizedSearch
+    ? entries.filter((entry) => entry.text.toLowerCase().includes(normalizedSearch))
+    : entries;
 
   useEffect(() => {
     let active = true;
@@ -165,11 +170,22 @@ export default function HomePage() {
 
       <section className="history" aria-labelledby="history-title">
         <h2 id="history-title">История</h2>
+        <label className="sr-only" htmlFor="history-search">
+          Найти в истории
+        </label>
+        <input
+          className="history-search"
+          id="history-search"
+          type="search"
+          placeholder="Найти в истории"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+        />
         {!isLoading && entries.length === 0 ? (
           <p>Здесь появятся сохранённые мысли.</p>
-        ) : entries.length > 0 ? (
+        ) : visibleEntries.length > 0 ? (
           <ol className="history-list">
-            {entries.map((entry) => (
+            {visibleEntries.map((entry) => (
               <li key={entry.id}>
                 <span>{entry.text}</span>
                 <button
@@ -183,6 +199,8 @@ export default function HomePage() {
               </li>
             ))}
           </ol>
+        ) : !isLoading ? (
+          <p>Ничего не найдено.</p>
         ) : null}
       </section>
     </main>

@@ -18,11 +18,13 @@
 - The web app loads history on page load, saves through the API, survives refreshes, and shows compact load/save errors.
 - P1-004 adds confirmed deletion through `DELETE /entries/:id` using the existing serialized atomic write path.
 - Successful deletion updates the visible history immediately and survives refresh; missing IDs return 404 without modifying other entries.
+- P1-005 adds frontend-only history search with trimmed, case-insensitive substring matching.
+- Search updates as the user types, preserves newest-first order, shows a compact no-results state, and remains compatible with deletion.
 
 ## Not implemented
 
 - multi-user or concurrent-process storage;
-- edit, pagination, and search;
+- edit, pagination, and export;
 - authentication;
 - AI integration;
 - finance, goals, HUD, insights, attention guardian, and companion.
@@ -33,4 +35,4 @@ The physical foundation contains only `apps/web` and `apps/api`. P1 uses a singl
 
 ## Documentation status
 
-Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-004 deletion flow and identify P1-005 as ready but not started.
+Documentation remains frozen at v1.0.3. The four continuity files reflect the completed P1-005 search flow and identify P1-006 as ready but not started.

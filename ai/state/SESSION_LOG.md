@@ -61,3 +61,13 @@ Append one concise entry after each meaningful task. Never rewrite old entries.
 - Manually verified confirmation, immediate removal, unaffected history, and refresh persistence in Chromium.
 - Verified format, lint, typecheck, tests, build, and project-context validation.
 - Marked P1-005 ready but did not start it.
+
+## 2026-07-13 - Complete P1-005 Memory history search
+
+- Added one independent search input above the existing history list.
+- Filtered loaded entries in the browser with trimmed, case-insensitive substring matching.
+- Preserved newest-first ordering and restored the full history when the query is cleared.
+- Added a compact no-results message without changing capture, API, or storage behavior.
+- Manually verified exact, partial, case-insensitive, trimmed, empty, cleared, and delete-while-filtered cases in Chromium.
+- Verified format, lint, typecheck, tests, build, and project-context validation.
+- Marked P1-006 ready but did not start it.

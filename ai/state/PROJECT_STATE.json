@@ -9,10 +9,10 @@
   },
   "overall_product_progress_percent": 0,
   "current_task": {
-    "id": "P1-005",
-    "title": "Show Memory creation time in history",
+    "id": "P1-006",
+    "title": "Export Memory history as JSON",
     "status": "ready",
-    "goal": "Display each persisted entry's authoritative creation time in the existing history"
+    "goal": "Let the user download the exact stored Memory history as a JSON file"
   },
   "verified_capabilities": [
     "Canonical Markdown documentation",
@@ -27,12 +27,13 @@
     "In-memory browser capture with newest-first history",
     "Durable local JSON Memory storage through GET and POST entry endpoints",
     "Web history loading and saving through the API with basic error states",
-    "Confirmed durable deletion of individual Memory entries"
+    "Confirmed durable deletion of individual Memory entries",
+    "Frontend-only case-insensitive Memory history search"
   ],
   "module_status": {
     "foundation": "complete",
     "capture": "durable_flow_complete",
-    "memory": "minimal_crud_without_edit_complete",
+    "memory": "durable_history_with_search_complete",
     "understanding": "not_started",
     "life_stats": "not_started",
     "finance": "not_started",
