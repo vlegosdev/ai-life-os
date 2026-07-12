@@ -30,3 +30,13 @@ Append one concise entry after each meaningful task. Never rewrite old entries.
 - Kept the task frontend-only: no interaction, API, persistence, AI, or authentication.
 - Verified the rendered page, format, lint, typecheck, tests, build, and project-context validation.
 - Marked P1-002 ready but did not start it.
+
+## 2026-07-12 - Complete P1-002 local Memory interaction
+
+- Added browser-memory state to the existing capture page without extracting new components.
+- Added shared native form submission for the save button and Enter key.
+- Trimmed input, ignored empty submissions, cleared successful input, and prepended new history entries.
+- Kept data ephemeral with no API, database, browser storage, AI, authentication, or dependency.
+- Manually verified every interaction acceptance case in Chromium.
+- Verified format, lint, typecheck, tests, build, and project-context validation.
+- Marked P1-003 ready but did not start it.

@@ -115,6 +115,21 @@ input {
   font-size: 15px;
 }
 
+.history-list {
+  display: grid;
+  gap: 0;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.history-list li {
+  padding: 18px 0;
+  border-bottom: 1px solid #e0e4e1;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;

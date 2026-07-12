@@ -1,4 +1,4 @@
-# Next Task - P1-002
+# Next Task - P1-003
 
 ## Status
 
@@ -6,20 +6,20 @@ Ready. Not started.
 
 ## Objective
 
-Make the existing Memory UI shell interactive in the browser: submitting non-empty text adds the unchanged text to the visible history for the current page session.
+Create the smallest durable Memory storage layer so immutable original text and its creation time survive process restarts.
 
 ## Required result
 
-- the existing input and save button support submission;
-- empty input is not added;
-- submitted text appears unchanged in chronological history;
-- the input clears after a successful submission;
-- focused frontend tests cover the interaction.
+- minimal PostgreSQL setup using the already approved foundation choice;
+- one Memory table containing original text and authoritative creation metadata;
+- original text is stored without AI interpretation;
+- focused persistence tests cover insertion and chronological retrieval;
+- exact local database commands are documented in the existing README.
 
 ## Out of scope
 
-API calls, database storage, reload persistence, AI classification, authentication, new packages, and architecture changes.
+Web integration, authentication, AI classification, derived entities, queues, caches, search, embeddings, and speculative abstractions.
 
 ## Acceptance criteria
 
-A user can enter text and see the unchanged entry in the current in-memory history. Reloading may clear the history. Relevant format, lint, typecheck, tests, build, and context validation pass.
+The persistence layer stores the original Memory text durably and retrieves entries in chronological order. Relevant format, lint, typecheck, tests, build, and context validation pass.

@@ -9,10 +9,10 @@
   },
   "overall_product_progress_percent": 0,
   "current_task": {
-    "id": "P1-002",
-    "title": "Make the Memory UI shell interactive",
+    "id": "P1-003",
+    "title": "Create minimal durable Memory storage",
     "status": "ready",
-    "goal": "Append submitted text to an in-memory history without persistence"
+    "goal": "Persist immutable original Memory text and creation time in PostgreSQL"
   },
   "verified_capabilities": [
     "Canonical Markdown documentation",
@@ -23,11 +23,12 @@
     "Minimal Fastify API with a typed GET /health response",
     "Strict TypeScript, ESLint, Prettier, and Vitest foundation",
     "GitHub Actions checks for lint, typecheck, test, build, and context validation",
-    "Responsive frontend-only Memory capture UI shell"
+    "Responsive frontend-only Memory capture UI shell",
+    "In-memory browser capture with newest-first history"
   ],
   "module_status": {
     "foundation": "complete",
-    "capture": "ui_shell_complete",
+    "capture": "frontend_interaction_complete",
     "memory": "not_started",
     "understanding": "not_started",
     "life_stats": "not_started",
